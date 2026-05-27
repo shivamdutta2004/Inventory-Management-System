@@ -1,5 +1,5 @@
-const BACKEND_ENDPOINT = 'http://localhost:5000/api/items';
-const AUTH_ENDPOINT = 'http://localhost:5000/api/auth/login';
+const BACKEND_ENDPOINT = 'https://inventory-backend-pnl0.onrender.com/api/items';
+const AUTH_ENDPOINT = 'https://inventory-backend-pnl0.onrender.com/api/auth/login';
 
 let memoryRegistry = [];
 let queryFilters = { search: '', category: 'All', condition: 'All' };
