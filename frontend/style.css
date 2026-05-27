@@ -1,43 +1,19 @@
+/* Custom Global Configurations */
 body {
-    font-family: Arial;
-    background: linear-gradient(to right, #1e3c72, #2a5298);
-    color: white;
-    text-align: center;
+    font-family: 'Space Grotesk', sans-serif;
 }
 
-.container {
-    width: 80%;
-    margin: auto;
+/* SPA Router Logic - Keeps non-active sections hidden */
+.router-section {
+    display: none;
 }
 
-input, select, button {
-    padding: 10px;
-    margin: 5px;
-    border-radius: 8px;
-    border: none;
+/* Optional: Smooth transitions when navigating */
+.router-section[style*="display: block"] {
+    animation: fadeIn 0.25s ease-in-out;
 }
 
-button {
-    background: #00c6ff;
-    color: white;
-    cursor: pointer;
-}
-
-.card {
-    background: rgba(255,255,255,0.9);
-    color: black;
-    padding: 15px;
-    margin: 10px;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: scale(1.03);
-}
-
-#search {
-    width: 300px;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
 }

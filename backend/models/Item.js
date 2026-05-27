@@ -1,13 +1,22 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const itemSchema = new mongoose.Schema({
-    category: String,
-    brand: String,
-    model: String,
-    specifications: String,   // ✅ FIXED NAME
-    quantity: Number,         // ✅ FIXED TYPE
-    purchaseDate: Date,
-    condition: String
-});
+const ItemSchema = new mongoose.Schema({
+    category: { 
+        type: String, 
+        required: true, 
+        enum: ['Keyboard', 'Mouse', 'Monitor', 'CPU'] 
+    },
+    brand: { type: String, required: true },
+    model: { type: String, required: true },
+    specs: { type: String },
+    quantity: { type: Number, required: true, min: 0 },
+    purchaseDate: { type: Date }, // Optional field per requirements
+    condition: { 
+        type: String, 
+        enum: ['Working', 'Faulty', 'Repair'], 
+        default: 'Working' 
+    }, // Optional field per requirements
+    room: { type: String, default: 'Unassigned' } // Advanced Room-wise tracking feature
+}, { timestamps: true });
 
-module.exports = mongoose.model("Item", itemSchema);
+module.exports = mongoose.model('Item', ItemSchema);

@@ -1,300 +1,246 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Enterprise Assets Matrix Hub</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-slate-50 to-blue-50/40 text-slate-900 min-h-screen flex flex-col pb-20 md:pb-0">
 
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Inventory Hub</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-primary-fixed-variant": "#29457c",
-                        "surface-container-highest": "#e3e2e7",
-                        "inverse-surface": "#2f3034",
-                        "on-tertiary-fixed": "#2e1500",
-                        "primary-container": "#1e3c72",
-                        "on-primary": "#ffffff",
-                        "on-primary-container": "#8da8e5",
-                        "surface-bright": "#faf9fe",
-                        "on-tertiary": "#ffffff",
-                        "surface-container": "#eeedf2",
-                        "tertiary": "#402000",
-                        "background": "#faf9fe",
-                        "tertiary-fixed-dim": "#ffb77b",
-                        "on-secondary-container": "#681986",
-                        "on-background": "#1a1b1f",
-                        "error-container": "#ffdad6",
-                        "on-tertiary-container": "#dd9a61",
-                        "inverse-on-surface": "#f1f0f5",
-                        "surface-container-lowest": "#ffffff",
-                        "outline": "#747781",
-                        "outline-variant": "#c4c6d1",
-                        "on-surface-variant": "#44474f",
-                        "error": "#ba1a1a",
-                        "primary": "#00255a",
-                        "on-secondary": "#ffffff",
-                        "secondary-fixed": "#f9d8ff",
-                        "on-error": "#ffffff",
-                        "secondary-container": "#e08efe",
-                        "surface-container-low": "#f4f3f8",
-                        "primary-fixed": "#d8e2ff",
-                        "surface-dim": "#dad9df",
-                        "on-error-container": "#93000a",
-                        "tertiary-fixed": "#ffdcc2",
-                        "surface-variant": "#e3e2e7",
-                        "primary-fixed-dim": "#aec6ff",
-                        "on-primary-fixed": "#001a42",
-                        "on-tertiary-fixed-variant": "#6b3b07",
-                        "surface-container-high": "#e9e7ed",
-                        "on-secondary-fixed": "#320046",
-                        "secondary": "#883ca6",
-                        "surface": "#faf9fe",
-                        "tertiary-container": "#603200",
-                        "surface-tint": "#425d95",
-                        "on-secondary-fixed-variant": "#6e208c",
-                        "inverse-primary": "#aec6ff",
-                        "secondary-fixed-dim": "#edb1ff",
-                        "on-surface": "#1a1b1f"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "stack-sm": "8px",
-                        "stack-md": "16px",
-                        "container-margin": "32px",
-                        "gutter": "24px",
-                        "stack-lg": "24px",
-                        "unit": "4px",
-                        "padding-card": "24px"
-                    },
-                    "fontFamily": {
-                        "h2": ["Space Grotesk"],
-                        "h3": ["Space Grotesk"],
-                        "body-md": ["Space Grotesk"],
-                        "body-lg": ["Space Grotesk"],
-                        "h1": ["Space Grotesk"],
-                        "body-sm": ["Space Grotesk"],
-                        "label-md": ["Space Grotesk"],
-                        "label-sm": ["Space Grotesk"]
-                    },
-                    "fontSize": {
-                        "h2": ["32px", { "lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-                        "h3": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-                        "body-md": ["16px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }],
-                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
-                        "h1": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "body-sm": ["14px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }],
-                        "label-md": ["14px", { "lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600" }],
-                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.04em", "fontWeight": "500" }]
-                    }
-                }
-            }
-        }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .material-symbols-outlined[data-weight="fill"] {
-            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-    </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  <style>
-#addSection, #inventorySection {
-    display: none;
-}
-</style>
-  </head>
-<body class="bg-background text-on-background antialiased selection:bg-primary-container selection:text-on-primary min-h-screen pb-24 md:pb-0">
-<!-- TopAppBar -->
-<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky full-width top-0 z-50 border-b border-slate-200 dark:border-slate-800 shadow-sm flex justify-between items-center w-full px-6 py-3">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-blue-900 dark:text-blue-400 text-xl font-bold" data-icon="inventory_2">inventory_2</span>
-<span class="font-['Space_Grotesk'] text-sm tracking-tight font-medium text-blue-900 dark:text-blue-400 font-bold">Smart Inventory System</span>
-</div>
-<div class="md:hidden flex items-center">
-<span class="material-symbols-outlined text-slate-500 hover:text-blue-900 transition-colors" data-icon="menu">menu</span>
-</div>
-<nav class="hidden md:flex gap-6">
-    <a onclick="showSection('dashboardSection')" class="text-sm font-medium text-slate-500 hover:text-blue-600 transition">
-    Dashboard
-</a>
+    <div id="toastContainer" class="fixed top-5 right-5 z-[100] flex flex-col gap-3 pointer-events-none"></div>
 
-<a onclick="showSection('addSection')" class="text-sm font-medium text-slate-500 hover:text-blue-600 transition">
-    Add Asset
-</a>
+    <section id="view-login" class="router-section fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950 p-4">
+        <div class="bg-white/10 backdrop-blur-xl border border-white/10 w-full max-w-md p-8 rounded-3xl shadow-2xl flex flex-col gap-6 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500"></div>
+            
+            <div class="text-center space-y-2">
+                <div class="mx-auto w-12 h-12 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                    <span class="material-symbols-outlined text-white text-2xl">lock</span>
+                </div>
+                <h2 class="text-2xl font-bold tracking-tight text-white mt-4">Enterprise Gateway</h2>
+                <p class="text-xs text-slate-400">Authenticate hardware cluster security parameters to gain clearance.</p>
+            </div>
 
-<a onclick="showSection('inventorySection')" class="text-sm font-medium text-blue-600 font-bold">
-    Inventory
-</a>
-</nav>
-</header>
-<main class="max-w-[1440px] mx-auto px-4 md:px-container-margin py-stack-lg flex flex-col gap-stack-lg">
-<section id="dashboardSection">
-<h1 class="font-h2 text-h2 text-on-background mb-stack-md">
-    Inventory Hub
-</h1>
-<div class="mt-6 flex justify-center">
-    <div style="width: 300px; height: 300px;">
-        <canvas id="myChart"></canvas>
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Operator Username</label>
+                    <input id="loginUsername" type="text" required placeholder="e.g., admin_matrix" class="w-full text-xs bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-white placeholder-slate-500 outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Security Password</label>
+                    <input id="loginPassword" type="password" required placeholder="••••••••" class="w-full text-xs bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-white placeholder-slate-500 outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 rounded-xl text-xs transition-all shadow-lg shadow-indigo-600/30 transform hover:-translate-y-0.5 mt-2">
+                    Initialize Workspace Connection
+                </button>
+            </form>
+            <div class="text-center">
+                <p class="text-[10px] text-slate-500">Authorized personnel only. Infrastructure system tracking version 2.0.</p>
+            </div>
+        </div>
+    </section>
+
+    <div id="applicationContentShell" class="hidden flex flex-col min-h-screen">
+        <header class="bg-white/80 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-40 px-6 py-4 flex justify-between items-center shadow-sm">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-xl shadow-md shadow-blue-200 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-xl">layers</span>
+                </div>
+                <span class="text-lg font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+                    InfraNode <span class="text-[10px] font-bold text-white px-2 py-0.5 bg-gradient-to-r from-blue-600 to-indigo-500 rounded-full ml-1 shadow-sm">v2.0</span>
+                </span>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <nav class="hidden md:flex gap-2 bg-slate-100/80 p-1 rounded-xl border border-slate-200/40">
+                    <a href="#/dashboard" id="link-dashboard" class="px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900">
+                        <span class="material-symbols-outlined text-sm">dashboard</span> Dashboard
+                    </a>
+                    <a href="#/inventory" id="link-inventory" class="px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900">
+                        <span class="material-symbols-outlined text-sm">inventory_2</span> Inventory
+                    </a>
+                    <a href="#/rooms" id="link-rooms" class="px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900">
+                        <span class="material-symbols-outlined text-sm">meeting_room</span> Room View
+                    </a>
+                    <a href="#/add-asset" id="link-add-asset" class="px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900">
+                        <span class="material-symbols-outlined text-sm">add_box</span> Add Item
+                    </a>
+                </nav>
+                <button onclick="terminateSessionLogout()" class="text-xs font-semibold px-3 py-2 border border-slate-200 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition flex items-center gap-1">
+                    <span class="material-symbols-outlined text-base">logout</span> <span class="hidden sm:inline">Terminal Exit</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto w-full p-4 md:p-8 flex-grow">
+            
+            <section id="view-dashboard" class="router-section space-y-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="text-3xl font-bold tracking-tight text-slate-900">Operational Dashboard</h1>
+                        <p class="text-xs text-slate-400 mt-0.5">Real-time enterprise metrics & core inventory state diagnostics.</p>
+                    </div>
+                    <span class="text-xs font-semibold px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200/60 flex items-center gap-1.5" id="liveClock">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> System Secure
+                    </span>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                    <div class="bg-white p-6 border border-slate-200/60 rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] relative overflow-hidden group hover:shadow-md transition-all duration-300">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Aggregated Units</p>
+                                <p id="dash-total" class="text-3xl font-bold text-slate-800 mt-1">0</p>
+                            </div>
+                            <div class="p-3 bg-blue-50 text-blue-600 rounded-xl"><span class="material-symbols-outlined text-2xl">widgets</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 border border-slate-200/60 rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] relative overflow-hidden group hover:shadow-md transition-all duration-300">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-teal-500"></div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Functional Status</p>
+                                <p id="dash-working" class="text-3xl font-bold text-slate-800 mt-1">0</p>
+                            </div>
+                            <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl"><span class="material-symbols-outlined text-2xl">check_circle</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 border border-slate-200/60 rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] relative overflow-hidden group hover:shadow-md transition-all duration-300">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-rose-500 to-orange-500"></div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Defective Elements</p>
+                                <p id="dash-faulty" class="text-3xl font-bold text-slate-800 mt-1">0</p>
+                            </div>
+                            <div class="p-3 bg-rose-50 text-rose-600 rounded-xl"><span class="material-symbols-outlined text-2xl">gavel</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="bg-white border border-slate-200/70 rounded-2xl p-5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] h-[340px] flex flex-col justify-between">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Category Density</h3>
+                        <div class="relative w-full h-[260px] flex items-center justify-center"><canvas id="chartCategories"></canvas></div>
+                    </div>
+                    <div class="bg-white border border-slate-200/70 rounded-2xl p-5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] h-[340px] flex flex-col justify-between">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Condition Breakdown</h3>
+                        <div class="relative w-full h-[260px] flex items-center justify-center"><canvas id="chartCondition"></canvas></div>
+                    </div>
+                    <div class="bg-white border border-slate-200/70 rounded-2xl p-5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] h-[340px] flex flex-col justify-between">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span> Deployment Pipeline</h3>
+                        <div class="relative w-full h-[260px] flex items-center justify-center"><canvas id="chartTimeline"></canvas></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="view-inventory" class="router-section space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h1 class="text-3xl font-bold tracking-tight text-slate-900">Hardware Repositories</h1>
+                        <p id="inv-count-string" class="text-xs text-slate-400 font-medium mt-0.5">Analyzing cluster node logs...</p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="exportToCSV()" class="bg-gradient-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5">
+                            <span class="material-symbols-outlined text-sm">download</span> Export Matrix
+                        </button>
+                        <div class="relative">
+                            <input id="invSearch" oninput="triggerSearchQuery(this.value)" placeholder="Search serial, room, brand..." class="border border-slate-200 bg-white/80 pl-9 pr-4 py-2 rounded-xl text-xs w-full sm:w-64 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm">
+                            <span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-base">search</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white/80 backdrop-blur-md border border-slate-200 p-4 rounded-2xl flex flex-wrap gap-4 items-center shadow-sm">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Category:</span>
+                        <select id="filterCategory" onchange="applyFilters()" class="text-xs border border-slate-200 bg-white rounded-xl py-1.5 pl-2 pr-8 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"><option value="All">All Categories</option><option>Keyboard</option><option>Mouse</option><option>Monitor</option><option>CPU</option></select>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Condition:</span>
+                        <select id="filterCondition" onchange="applyFilters()" class="text-xs border border-slate-200 bg-white rounded-xl py-1.5 pl-2 pr-8 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"><option value="All">All Conditions</option><option>Working</option><option>Faulty</option><option>Repair</option></select>
+                    </div>
+                </div>
+
+                <div id="cardsGridContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </section>
+
+            <section id="view-rooms" class="router-section space-y-6">
+                <div>
+                    <h1 class="text-3xl font-bold tracking-tight text-slate-900">Room Allocation Matrix</h1>
+                    <p class="text-xs text-slate-400 mt-0.5">Real-time modular infrastructure deployment maps grouped dynamically by physical facility layout.</p>
+                </div>
+                <div id="roomsViewContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+            </section>
+
+            <section id="view-add-asset" class="router-section max-w-2xl mx-auto bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.02)] relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-500"></div>
+                <h2 id="formHeader" class="text-2xl font-bold tracking-tight text-slate-900 mb-1">Add System Hardware</h2>
+                <p class="text-xs text-slate-400 mb-6">Populate structural telemetry metrics to register this physical component to the matrix database logs.</p>
+                
+                <form id="assetWriteForm" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <input type="hidden" id="formAssetId">
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Hardware Category *</label>
+                        <select id="assetCategory" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+                            <option>Keyboard</option><option>Mouse</option><option>Monitor</option><option>CPU</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Manufacturer Brand *</label>
+                        <input id="assetBrand" type="text" required placeholder="e.g., Logitech" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Model Designation String *</label>
+                        <input id="assetModel" type="text" required placeholder="e.g., G-Pro Wireless" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Deployment Location (Room / Lab)</label>
+                        <input id="assetRoom" type="text" placeholder="e.g., Server Room 3B" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Available Quantity *</label>
+                        <input id="assetQuantity" type="number" min="0" required class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Purchase Date (Optional)</label>
+                        <input id="assetDate" type="date" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Functional Condition State</label>
+                        <select id="assetCondition" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+                            <option>Working</option><option>Faulty</option><option>Repair</option>
+                        </select>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Specifications & Parameters Log</label>
+                        <input id="assetSpecs" type="text" placeholder="e.g., 2.4Ghz wireless dongle" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+                    </div>
+                    <div class="sm:col-span-2 flex items-center gap-3 pt-3">
+                        <button type="submit" id="formSubmitBtn" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-6 py-2.5 rounded-xl text-xs transition-all shadow-md shadow-blue-200 transform hover:-translate-y-0.5">
+                            Commit Record
+                        </button>
+                        <button type="button" id="formCancelBtn" onclick="resetFormToDefaults()" class="hidden bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-4 py-2.5 rounded-xl text-xs transition-all">
+                            Abort Modification
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </main>
+
+        <nav class="md:hidden bg-white/90 backdrop-blur-md border-t border-slate-200 fixed bottom-0 left-0 w-full z-40 flex justify-around items-center py-2.5 shadow-lg">
+            <a href="#/dashboard" class="flex flex-col items-center text-slate-400 text-[10px] font-bold uppercase tracking-wide gap-0.5"><span class="material-symbols-outlined text-lg">dashboard</span>Dash</a>
+            <a href="#/inventory" class="flex flex-col items-center text-slate-400 text-[10px] font-bold uppercase tracking-wide gap-0.5"><span class="material-symbols-outlined text-lg">inventory_2</span>Stock</a>
+            <a href="#/rooms" class="flex flex-col items-center text-slate-400 text-[10px] font-bold uppercase tracking-wide gap-0.5"><span class="material-symbols-outlined text-lg">meeting_room</span>Rooms</a>
+            <a href="#/add-asset" class="flex flex-col items-center text-slate-400 text-[10px] font-bold uppercase tracking-wide gap-0.5"><span class="material-symbols-outlined text-lg">add_box</span>New</a>
+        </nav>
     </div>
-</div>
-<!-- 📊 CATEGORY BAR CHART -->
-<div class="mt-10 flex justify-center">
-    <div style="width: 400px; height: 300px;">
-        <canvas id="barChart"></canvas>
-    </div>
-</div>
 
-<!-- 📈 TREND LINE CHART -->
-<div class="mt-10 flex justify-center">
-    <div style="width: 500px; height: 300px;">
-        <canvas id="lineChart"></canvas>
-    </div>
-</div>
-
-<!-- 📅 DATE FILTER -->
-<div class="mt-6 flex gap-4 justify-center">
-    <input type="date" id="startDate" class="border p-2 rounded">
-    <input type="date" id="endDate" class="border p-2 rounded">
-    <button onclick="loadItems()" class="bg-blue-500 text-white px-4 py-2 rounded">
-        Filter
-    </button>
-</div>
-<!-- Dashboard Stats -->
-<div class="grid grid-cols-3 gap-stack-sm md:gap-stack-md">
-
-    <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-md flex flex-col justify-center items-center shadow-[0_4px_20px_0_rgba(30,60,114,0.05)]">
-        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Total Items</span>
-        <span id="totalTop" class="font-h3 text-h3 text-on-background">0</span>
-    </div>
-
-    <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-md flex flex-col justify-center items-center shadow-[0_4px_20px_0_rgba(30,60,114,0.05)]">
-        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Working</span>
-        <span id="workingCount" class="font-h3 text-h3 text-primary-container">0</span>
-    </div>
-
-    <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-md flex flex-col justify-center items-center shadow-[0_4px_20px_0_rgba(30,60,114,0.05)]">
-        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Faulty</span>
-        <span id="faultyCount" class="font-h3 text-h3 text-error">0</span>
-    </div>
-
-</div>
-</section>
-<!-- ✅ ADD ASSET SECTION -->
-<section id="addSection" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-lg shadow-[0_4px_20px_0_rgba(30,60,114,0.05)]">
-
-    <h2 class="font-h3 text-h3 text-on-background mb-stack-md">Add New Asset</h2>
-
-    <div class="flex justify-between items-center mb-4">
-        <input id="search" placeholder="Search items..."
-            class="border border-gray-300 px-3 py-2 rounded-lg w-64">
-
-        <p id="totalCount" class="font-semibold text-gray-600"></p>
-    </div>
-
-    <p class="text-sm text-gray-500 mt-2 mb-4">
-        Manage your inventory efficiently 🚀
-    </p>
-
-    <!-- FORM -->
-    <form id="itemForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-        <div>
-            <label>Category</label>
-            <select id="category" class="w-full border p-2 rounded">
-                <option>Keyboard</option>
-                <option>Mouse</option>
-                <option>Monitor</option>
-                <option>CPU</option>
-            </select>
-        </div>
-
-        <div>
-            <label>Brand</label>
-            <input id="brand" type="text" class="w-full border p-2 rounded">
-        </div>
-
-        <div>
-            <label>Model</label>
-            <input id="model" type="text" class="w-full border p-2 rounded">
-        </div>
-
-        <div>
-            <label>Specifications</label>
-            <input id="specs" type="text" class="w-full border p-2 rounded">
-        </div>
-
-        <div>
-            <label>Quantity</label>
-            <input id="quantity" type="number" class="w-full border p-2 rounded">
-        </div>
-
-        <div>
-            <label>Purchase Date</label>
-            <input id="date" type="date" class="w-full border p-2 rounded">
-        </div>
-
-        <div class="md:col-span-2">
-            <label>Condition</label>
-            <select id="condition" class="w-full border p-2 rounded">
-                <option>Working</option>
-                <option>Faulty</option>
-                <option>Repair</option>
-            </select>
-        </div>
-
-        <div class="md:col-span-2">
-            <button type="submit"
-                class="bg-blue-600 text-white px-4 py-2 rounded-lg">
-                + Add Item
-            </button>
-        </div>
-
-    </form>
-</section>
-<!-- Inventory List -->
-<section id="inventorySection">
-
-    <h2 class="font-h3 text-h3 text-on-background mb-stack-sm">
-        Current Inventory
-    </h2>
-
-    <div id="items"></div>
-
-</section>
-<!-- BottomNavBar -->
-<nav class="md:hidden bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_20px_0_rgba(30,60,114,0.05)] docked full-width bottom-0 rounded-t-xl fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe">
-<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-blue-700 dark:hover:text-blue-300 scale-100 active:scale-95 transition-transform duration-150" onclick="showSection('dashboardSection')">
-
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="font-['Space_Grotesk'] text-[11px] font-semibold uppercase tracking-wider mt-1">Dashboard</span>
-
-</a>
-<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-blue-700 dark:hover:text-blue-300 scale-100 active:scale-95 transition-transform duration-150" href="#addSection">
-<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
-<span class="font-['Space_Grotesk'] text-[11px] font-semibold uppercase tracking-wider mt-1">Add Asset</span>
-</a>
-<a class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/20 rounded-lg px-4 py-1 hover:text-blue-700 dark:hover:text-blue-300 scale-100 active:scale-95 transition-transform duration-150" href="#inventorySection">
-<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
-<span class="font-['Space_Grotesk'] text-[11px] font-semibold uppercase tracking-wider mt-1">Inventory</span>
-</a>
-</nav>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="script.js"></script>
-</body></html>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
