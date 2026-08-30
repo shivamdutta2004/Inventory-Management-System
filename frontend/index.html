@@ -4,243 +4,1554 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Enterprise Assets Matrix Hub</title>
+
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+
     <link rel="stylesheet" href="style.css"/>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Space Grotesk", sans-serif;
+        }
+
+        .login-glow {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(90px);
+            opacity: 0.22;
+            pointer-events: none;
+        }
+
+        .login-card {
+            animation: loginCardIn 0.55s ease-out;
+        }
+
+        @keyframes loginCardIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px) scale(0.985);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .login-input {
+            transition: all 0.2s ease;
+        }
+
+        .login-input:focus {
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.10);
+        }
+
+        .password-toggle {
+            transition: all 0.2s ease;
+        }
+
+        .password-toggle:hover {
+            transform: scale(1.06);
+        }
+
+        .primary-button {
+            transition: all 0.2s ease;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .primary-button:active {
+            transform: translateY(0);
+        }
+
+
+                /* =========================================================
+           FINAL 100% DESKTOP LOGIN LAYOUT
+           No transform scaling and no page scrolling on desktop.
+           ========================================================= */
+
+        html,
+        body {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        #view-login {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh !important;
+            min-height: 100vh !important;
+            max-height: 100vh !important;
+            overflow: hidden !important;
+        }
+
+        #view-login > div.relative.z-10 {
+            width: 100%;
+            height: 100vh !important;
+            min-height: 100vh !important;
+            max-height: 100vh !important;
+            grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+            overflow: hidden;
+        }
+
+        #view-login .hidden.lg\:flex {
+            min-width: 0;
+            min-height: 0;
+            padding: 2rem 4rem;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        #view-login .hidden.lg\:flex > div.max-w-xl {
+            max-width: 700px;
+        }
+
+        #view-login .hidden.lg\:flex h1 {
+            font-size: clamp(3rem, 4vw, 4.15rem);
+            line-height: 0.98;
+            letter-spacing: -0.04em;
+        }
+
+        #view-login .hidden.lg\:flex > div.max-w-xl > p {
+            max-width: 650px;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-top: 0.9rem;
+        }
+
+        #view-login .hidden.lg\:flex .grid {
+            gap: 0.75rem;
+            margin-top: 1.15rem;
+        }
+
+        #view-login .hidden.lg\:flex .grid > div {
+            padding: 0.8rem;
+        }
+
+        #view-login .hidden.lg\:flex .grid > div > div:first-child {
+            width: 2.3rem;
+            height: 2.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        #view-login .hidden.lg\:flex .grid > div p {
+            font-size: 0.68rem;
+            line-height: 1.3;
+        }
+
+        #view-login > div.relative.z-10 > div:last-child {
+            min-width: 0;
+            min-height: 0;
+            padding: 0.75rem 3rem;
+            overflow: hidden;
+        }
+
+        #view-login .login-card {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            transform: none !important;
+        }
+
+        #view-login .login-card > div.relative {
+            padding: 1rem 1.1rem;
+        }
+
+        #view-login .login-card .mx-auto.w-14.h-14 {
+            width: 2.75rem;
+            height: 2.75rem;
+        }
+
+        #view-login .login-card h2 {
+            font-size: 1.65rem;
+            line-height: 1.1;
+            margin-top: 0.45rem;
+        }
+
+        #view-login .login-card .text-center.mb-8 {
+            margin-bottom: 0.55rem;
+        }
+
+        #view-login .login-card .flex.items-center.justify-center.gap-2.mb-7 {
+            margin-bottom: 0.5rem;
+        }
+
+        #view-login .login-card form {
+            gap: 0.45rem;
+        }
+
+        #view-login .login-card form input {
+            padding-top: 0.52rem;
+            padding-bottom: 0.52rem;
+        }
+
+        #view-login .login-card form button[type="submit"] {
+            padding-top: 0.58rem;
+            padding-bottom: 0.58rem;
+        }
+
+        #view-login .login-card .my-5 {
+            margin-top: 0.4rem;
+            margin-bottom: 0.4rem;
+        }
+
+        #view-login .login-card .grid.grid-cols-2.gap-3 > div {
+            padding: 0.38rem;
+        }
+
+        #view-login .login-card .text-center.mt-6 {
+            margin-top: 0.2rem;
+        }
+
+        /* Normal desktop viewport at browser zoom 100%. */
+        @media (min-width: 1024px) and (min-height: 821px) {
+            #view-login > div.relative.z-10 > div:last-child {
+                padding-left: 3.25rem;
+                padding-right: 3.25rem;
+            }
+        }
+
+        /* 1366x768 and similar laptop viewports at browser zoom 100%. */
+        @media (min-width: 1024px) and (max-height: 820px) {
+
+            #view-login > div.relative.z-10 {
+                grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+            }
+
+            #view-login .hidden.lg\:flex {
+                padding: 0.8rem 3rem;
+            }
+
+            #view-login .hidden.lg\:flex h1 {
+                font-size: 2.8rem;
+                line-height: 0.97;
+            }
+
+            #view-login .hidden.lg\:flex > div.max-w-xl > p {
+                font-size: 0.86rem;
+                line-height: 1.3;
+                margin-top: 0.55rem;
+            }
+
+            #view-login .hidden.lg\:flex .grid {
+                margin-top: 0.65rem;
+                gap: 0.45rem;
+            }
+
+            #view-login .hidden.lg\:flex .grid > div {
+                padding: 0.5rem;
+            }
+
+            #view-login .hidden.lg\:flex .grid > div > div:first-child {
+                width: 1.9rem;
+                height: 1.9rem;
+                margin-bottom: 0.3rem;
+            }
+
+            #view-login > div.relative.z-10 > div:last-child {
+                padding: 0.2rem 1.7rem;
+            }
+
+            #view-login .login-card {
+                max-width: 480px;
+            }
+
+            #view-login .login-card > div.relative {
+                padding: 0.65rem 0.85rem;
+            }
+
+            #view-login .login-card .mx-auto.w-14.h-14 {
+                width: 2.25rem;
+                height: 2.25rem;
+            }
+
+            #view-login .login-card h2 {
+                font-size: 1.42rem;
+                margin-top: 0.25rem;
+            }
+
+            #view-login .login-card .text-center.mb-8 {
+                margin-bottom: 0.35rem;
+            }
+
+            #view-login .login-card .flex.items-center.justify-center.gap-2.mb-7 {
+                margin-bottom: 0.35rem;
+            }
+
+            #view-login .login-card form {
+                gap: 0.32rem;
+            }
+
+            #view-login .login-card form input {
+                padding-top: 0.4rem;
+                padding-bottom: 0.4rem;
+            }
+
+            #view-login .login-card form button[type="submit"] {
+                padding-top: 0.44rem;
+                padding-bottom: 0.44rem;
+            }
+
+            #view-login .login-card .my-5 {
+                margin-top: 0.28rem;
+                margin-bottom: 0.28rem;
+            }
+
+            #view-login .login-card .grid.grid-cols-2.gap-3 > div {
+                padding: 0.25rem;
+            }
+
+            #view-login .login-card .text-center.mt-6 {
+                margin-top: 0.12rem;
+            }
+        }
+
+        /* Extra-short desktop viewport. */
+        @media (min-width: 1024px) and (max-height: 740px) {
+
+            #view-login .hidden.lg\:flex {
+                padding: 0.5rem 2.1rem;
+            }
+
+            #view-login .hidden.lg\:flex h1 {
+                font-size: 2.45rem;
+            }
+
+            #view-login .hidden.lg\:flex .grid {
+                margin-top: 0.45rem;
+            }
+
+            #view-login > div.relative.z-10 > div:last-child {
+                padding-top: 0.1rem;
+                padding-bottom: 0.1rem;
+            }
+
+            #view-login .login-card > div.relative {
+                padding: 0.5rem 0.7rem;
+            }
+
+            #view-login .login-card .mx-auto.w-14.h-14 {
+                width: 2rem;
+                height: 2rem;
+            }
+
+            #view-login .login-card h2 {
+                font-size: 1.25rem;
+            }
+
+            #view-login .login-card form input {
+                padding-top: 0.32rem;
+                padding-bottom: 0.32rem;
+            }
+
+            #view-login .login-card form button[type="submit"] {
+                padding-top: 0.35rem;
+                padding-bottom: 0.35rem;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 1023px) {
+            #view-login {
+                overflow-y: auto !important;
+            }
+
+            #view-login > div.relative.z-10 {
+                min-height: 100vh;
+                height: auto !important;
+            }
+        }
+
+
+    </style>
 </head>
+
 <body class="bg-gradient-to-br from-slate-50 via-slate-50 to-blue-50/40 text-slate-900 min-h-screen flex flex-col pb-20 md:pb-0">
 
-    <div id="toastContainer" class="fixed top-5 right-5 z-[100] flex flex-col gap-3 pointer-events-none"></div>
+    <!-- Toast Notifications -->
+    <div id="toastContainer"
+         class="fixed top-5 right-5 z-[100] flex flex-col gap-3 pointer-events-none"></div>
 
-    <section id="view-login" class="router-section fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950 p-4">
-        <div class="bg-white/10 backdrop-blur-xl border border-white/10 w-full max-w-md p-8 rounded-3xl shadow-2xl flex flex-col gap-6 relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500"></div>
-            
-            <div class="text-center space-y-2">
-                <div class="mx-auto w-12 h-12 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/30">
-                    <span class="material-symbols-outlined text-white text-2xl">lock</span>
-                </div>
-                <h2 class="text-2xl font-bold tracking-tight text-white mt-4">Enterprise Gateway</h2>
-                <p class="text-xs text-slate-400">Authenticate hardware cluster security parameters to gain clearance.</p>
-            </div>
+    <!-- ========================================================= -->
+    <!-- LOGIN SCREEN -->
+    <!-- ========================================================= -->
 
-            <form id="loginForm" class="space-y-4">
-                <div>
-                    <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Operator Username</label>
-                    <input id="loginUsername" type="text" required placeholder="e.g., admin_matrix" class="w-full text-xs bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-white placeholder-slate-500 outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Security Password</label>
-                    <input id="loginPassword" type="password" required placeholder="••••••••" class="w-full text-xs bg-slate-800/50 border border-slate-700 rounded-xl p-3 text-white placeholder-slate-500 outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all">
-                </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 rounded-xl text-xs transition-all shadow-lg shadow-indigo-600/30 transform hover:-translate-y-0.5 mt-2">
-                    Initialize Workspace Connection
-                </button>
-            </form>
-            <div class="text-center">
-                <p class="text-[10px] text-slate-500">Authorized personnel only. Infrastructure system tracking version 2.0.</p>
-            </div>
+    <section id="view-login"
+             class="router-section fixed inset-0 z-50 h-screen overflow-hidden bg-slate-950">
+
+        <!-- Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950"></div>
+
+        <!-- Decorative Glows -->
+        <div class="login-glow w-[500px] h-[500px] bg-blue-600 -top-32 -left-32"></div>
+        <div class="login-glow w-[600px] h-[600px] bg-violet-600 -bottom-40 -right-32"></div>
+
+        <!-- Background Grid -->
+        <div class="absolute inset-0 opacity-[0.035]"
+             style="background-image: linear-gradient(rgba(255,255,255,.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.8) 1px, transparent 1px); background-size: 44px 44px;">
         </div>
+
+        <!-- ===================================================== -->
+        <!-- LOGIN LAYOUT -->
+        <!-- ===================================================== -->
+
+        <div class="relative z-10 min-h-screen w-full grid grid-cols-1 lg:grid-cols-2">
+
+            <!-- ================================================= -->
+            <!-- LEFT PANEL -->
+            <!-- ================================================= -->
+
+            <div class="hidden lg:flex flex-col justify-between p-12 xl:p-16">
+
+                <!-- Brand -->
+                <div class="flex items-center gap-3">
+
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-900/40">
+
+                        <span class="material-symbols-outlined text-white text-2xl">
+                            layers
+                        </span>
+
+                    </div>
+
+                    <div>
+
+                        <div class="text-white text-lg font-bold tracking-tight">
+                            InfraNode
+                        </div>
+
+                        <div class="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-bold">
+                            Enterprise Asset Intelligence
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Main Product Message -->
+                <div class="max-w-xl">
+
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-400/20 bg-emerald-400/5 text-emerald-400 text-[10px] font-bold uppercase tracking-[0.14em] mb-6">
+
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.7)]"></span>
+
+                        Secure Infrastructure Platform
+
+                    </div>
+
+                    <h1 class="text-5xl xl:text-6xl font-bold leading-[1.05] tracking-tight text-white">
+
+                        Smarter control for your
+
+                        <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent">
+                            enterprise assets.
+                        </span>
+
+                    </h1>
+
+                    <p class="mt-6 text-base xl:text-lg text-slate-400 leading-relaxed max-w-lg">
+
+                        Monitor hardware inventory, operational condition,
+                        room allocation and asset deployment from one
+                        centralized management workspace.
+
+                    </p>
+
+                    <!-- Feature Cards -->
+                    <div class="grid grid-cols-2 gap-4 mt-10 max-w-xl">
+
+                        <div class="border border-white/10 bg-white/[0.035] backdrop-blur-md rounded-2xl p-5">
+
+                            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4">
+
+                                <span class="material-symbols-outlined text-blue-400">
+                                    inventory_2
+                                </span>
+
+                            </div>
+
+                            <h3 class="text-sm font-bold text-white">
+                                Centralized Inventory
+                            </h3>
+
+                            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+                                Track every hardware asset from one place.
+                            </p>
+
+                        </div>
+
+                        <div class="border border-white/10 bg-white/[0.035] backdrop-blur-md rounded-2xl p-5">
+
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4">
+
+                                <span class="material-symbols-outlined text-emerald-400">
+                                    monitoring
+                                </span>
+
+                            </div>
+
+                            <h3 class="text-sm font-bold text-white">
+                                Live Diagnostics
+                            </h3>
+
+                            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+                                View working, faulty and repair states instantly.
+                            </p>
+
+                        </div>
+
+                        <div class="border border-white/10 bg-white/[0.035] backdrop-blur-md rounded-2xl p-5">
+
+                            <div class="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center mb-4">
+
+                                <span class="material-symbols-outlined text-violet-400">
+                                    meeting_room
+                                </span>
+
+                            </div>
+
+                            <h3 class="text-sm font-bold text-white">
+                                Room Allocation
+                            </h3>
+
+                            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+                                Organize deployed infrastructure by location.
+                            </p>
+
+                        </div>
+
+                        <div class="border border-white/10 bg-white/[0.035] backdrop-blur-md rounded-2xl p-5">
+
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center mb-4">
+
+                                <span class="material-symbols-outlined text-amber-400">
+                                    verified_user
+                                </span>
+
+                            </div>
+
+                            <h3 class="text-sm font-bold text-white">
+                                Secure Access
+                            </h3>
+
+                            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+                                Authenticated workspace with protected sessions.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Footer -->
+                <div class="flex items-center justify-between max-w-xl">
+
+                    <p class="text-[10px] text-slate-600 uppercase tracking-wider font-semibold">
+                        Infrastructure Management System
+                    </p>
+
+                    <p class="text-[10px] text-slate-600">
+                        v2.0
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- ================================================= -->
+            <!-- RIGHT LOGIN PANEL -->
+            <!-- ================================================= -->
+
+            <div class="flex items-center justify-center px-5 py-4 lg:px-12 xl:px-20">
+
+                <div class="w-full max-w-md">
+
+                    <!-- Mobile Brand -->
+                    <div class="lg:hidden flex items-center justify-center gap-3 mb-8">
+
+                        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg">
+
+                            <span class="material-symbols-outlined text-white text-2xl">
+                                layers
+                            </span>
+
+                        </div>
+
+                        <div>
+
+                            <div class="text-white text-lg font-bold">
+                                InfraNode
+                            </div>
+
+                            <div class="text-[9px] text-slate-500 uppercase tracking-widest">
+                                Enterprise Asset Intelligence
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Login Card -->
+                    <div class="relative login-card">
+
+                        <div class="absolute -inset-[1px] rounded-[24px] bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500 opacity-55 blur-[1px]"></div>
+
+                        <div class="relative rounded-[24px] border border-white/10 bg-slate-900/95 backdrop-blur-2xl shadow-2xl p-5 sm:p-6 overflow-hidden">
+
+                            <!-- Gradient Top Border -->
+                            <div class="absolute top-0 left-0 w-full h-0.5 rounded-t-[24px] bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-500"></div>
+
+                            <!-- Login Header -->
+                            <div class="text-center mb-8">
+
+                                <div class="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-xl shadow-indigo-500/25 ring-1 ring-white/10">
+
+                                    <span class="material-symbols-outlined text-white text-3xl">
+                                        shield_lock
+                                    </span>
+
+                                </div>
+
+                                <h2 class="text-3xl font-bold text-white tracking-tight mt-5">
+                                    Enterprise Gateway
+                                </h2>
+
+                                <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                                    Sign in to access your secure asset
+                                    management workspace.
+                                </p>
+
+                            </div>
+
+                            <!-- Secure Status -->
+                            <div class="flex items-center justify-center gap-2 mb-7">
+
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,.8)]"></span>
+
+                                <span class="text-[10px] font-bold uppercase tracking-[0.16em] text-emerald-400">
+                                    Secure Gateway Online
+                                </span>
+
+                            </div>
+
+                            <!-- Existing Login Form -->
+                            <form id="loginForm" class="space-y-5">
+
+                                <!-- Username -->
+                                <div>
+
+                                    <label class="block text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400 mb-2">
+                                        Operator Username
+                                    </label>
+
+                                    <div class="relative">
+
+                                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-lg pointer-events-none">
+                                            person
+                                        </span>
+
+                                        <input id="loginUsername"
+                                               type="text"
+                                               required
+                                               autocomplete="username"
+                                               placeholder="Enter your username"
+                                               class="login-input w-full text-sm bg-slate-800/70 border border-slate-700 rounded-xl py-3.5 pl-11 pr-4 text-white placeholder-slate-500 outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all">
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Password -->
+                                <div>
+
+                                    <label class="block text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400 mb-2">
+                                        Security Password
+                                    </label>
+
+                                    <div class="relative">
+
+                                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-lg pointer-events-none">
+                                            lock
+                                        </span>
+
+                                        <input id="loginPassword"
+                                               type="password"
+                                               required
+                                               autocomplete="current-password"
+                                               placeholder="Enter your security password"
+                                               class="login-input w-full text-sm bg-slate-800/70 border border-slate-700 rounded-xl py-3.5 pl-11 pr-12 text-white placeholder-slate-500 outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all">
+
+                                        <!-- Password Eye Button -->
+                                        <button type="button"
+                                                id="passwordToggleButton"
+                                                onclick="togglePasswordVisibility()"
+                                                aria-label="Show password"
+                                                class="password-toggle absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-700/70">
+
+                                            <span id="passwordEyeIcon"
+                                                  class="material-symbols-outlined text-lg">
+                                                visibility
+                                            </span>
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Forgot Password -->
+                                <div class="flex justify-end -mt-1">
+
+                                    <button type="button"
+                                            onclick="forgotPassword()"
+                                            class="text-[11px] font-semibold text-blue-400 hover:text-blue-300 transition-colors">
+
+                                        Forgot Password?
+
+                                    </button>
+
+                                </div>
+
+                                <!-- Existing Login Button -->
+                                <button type="submit"
+                                        class="primary-button w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-500 hover:via-indigo-500 hover:to-violet-500 text-white font-bold py-3.5 rounded-xl text-sm transition-all shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2">
+
+                                    <span class="material-symbols-outlined text-lg">
+                                        login
+                                    </span>
+
+                                    Initialize Workspace Connection
+
+                                </button>
+
+                            </form>
+
+                            <!-- Divider -->
+                            <div class="flex items-center gap-3 my-5">
+
+                                <div class="h-px flex-1 bg-white/10"></div>
+
+                                <span class="text-[9px] uppercase tracking-[0.16em] text-slate-600 font-bold">
+                                    Protected Session
+                                </span>
+
+                                <div class="h-px flex-1 bg-white/10"></div>
+
+                            </div>
+
+                            <!-- Security Feature Cards -->
+                            <div class="grid grid-cols-2 gap-3">
+
+                                <div class="rounded-xl border border-white/5 bg-white/[0.025] p-3.5">
+
+                                    <div class="flex items-center gap-2">
+
+                                        <span class="material-symbols-outlined text-blue-400 text-base">
+                                            shield
+                                        </span>
+
+                                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-300">
+                                            Protected
+                                        </span>
+
+                                    </div>
+
+                                    <p class="text-[9px] text-slate-600 mt-1.5">
+                                        Authenticated access only
+                                    </p>
+
+                                </div>
+
+                                <div class="rounded-xl border border-white/5 bg-white/[0.025] p-3.5">
+
+                                    <div class="flex items-center gap-2">
+
+                                        <span class="material-symbols-outlined text-emerald-400 text-base">
+                                            verified_user
+                                        </span>
+
+                                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-300">
+                                            Session
+                                        </span>
+
+                                    </div>
+
+                                    <p class="text-[9px] text-slate-600 mt-1.5">
+                                        Secure token validation
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="text-center mt-6">
+
+                                <p class="text-[9px] text-slate-600">
+                                    Authorized personnel only • Infrastructure system tracking v2.0
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </section>
 
-    <div id="applicationContentShell" class="hidden flex flex-col min-h-screen">
+    <!-- ========================================================= -->
+    <!-- APPLICATION CONTENT -->
+    <!-- ========================================================= -->
+
+    <div id="applicationContentShell"
+         class="hidden flex flex-col min-h-screen">
+
+        <!-- ===================================================== -->
+        <!-- TOP HEADER -->
+        <!-- ===================================================== -->
+
         <header class="bg-white/80 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-40 px-6 py-4 flex justify-between items-center shadow-sm">
+
             <div class="flex items-center gap-3">
+
                 <div class="p-2 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-xl shadow-md shadow-blue-200 flex items-center justify-center">
-                    <span class="material-symbols-outlined text-white text-xl">layers</span>
+
+                    <span class="material-symbols-outlined text-white text-xl">
+                        layers
+                    </span>
+
                 </div>
+
                 <span class="text-lg font-bold tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
-                    InfraNode <span class="text-[10px] font-bold text-white px-2 py-0.5 bg-gradient-to-r from-blue-600 to-indigo-500 rounded-full ml-1 shadow-sm">v2.0</span>
+
+                    InfraNode
+
+                    <span class="text-[10px] font-bold text-white px-2 py-0.5 bg-gradient-to-r from-blue-600 to-indigo-500 rounded-full ml-1 shadow-sm">
+                        v2.0
+                    </span>
+
                 </span>
+
             </div>
-            
+
             <div class="flex items-center gap-4">
+
                 <nav class="hidden md:flex gap-2 bg-slate-100/80 p-1 rounded-xl border border-slate-200/40">
-                    <a href="#/dashboard" id="link-dashboard" class="px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900">
-                        <span class="material-symbols-outlined text-sm">dashboard</span> Dashboard
+
+                    <a href="#/dashboard"
+                       id="link-dashboard"
+                       class="px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900">
+
+                        <span class="material-symbols-outlined text-sm">
+                            dashboard
+                        </span>
+
+                        Dashboard
+
                     </a>
-                    <a href="#/inventory" id="link-inventory" class="px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900">
-                        <span class="material-symbols-outlined text-sm">inventory_2</span> Inventory
+
+                    <a href="#/inventory"
+                       id="link-inventory"
+                       class="px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900">
+
+                        <span class="material-symbols-outlined text-sm">
+                            inventory_2
+                        </span>
+
+                        Inventory
+
                     </a>
-                    <a href="#/rooms" id="link-rooms" class="px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900">
-                        <span class="material-symbols-outlined text-sm">meeting_room</span> Room View
+
+                    <a href="#/rooms"
+                       id="link-rooms"
+                       class="px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900">
+
+                        <span class="material-symbols-outlined text-sm">
+                            meeting_room
+                        </span>
+
+                        Room View
+
                     </a>
-                    <a href="#/add-asset" id="link-add-asset" class="px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900">
-                        <span class="material-symbols-outlined text-sm">add_box</span> Add Item
+
+                    <a href="#/add-asset"
+                       id="link-add-asset"
+                       class="px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-slate-600 hover:text-slate-900">
+
+                        <span class="material-symbols-outlined text-sm">
+                            add_box
+                        </span>
+
+                        Add Item
+
                     </a>
+
                 </nav>
-                <button onclick="terminateSessionLogout()" class="text-xs font-semibold px-3 py-2 border border-slate-200 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition flex items-center gap-1">
-                    <span class="material-symbols-outlined text-base">logout</span> <span class="hidden sm:inline">Terminal Exit</span>
+
+                <button onclick="terminateSessionLogout()"
+                        class="text-xs font-semibold px-3 py-2 border border-slate-200 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition flex items-center gap-1">
+
+                    <span class="material-symbols-outlined text-base">
+                        logout
+                    </span>
+
+                    <span class="hidden sm:inline">
+                        Terminal Exit
+                    </span>
+
                 </button>
+
             </div>
+
         </header>
 
+        <!-- ===================================================== -->
+        <!-- MAIN APPLICATION -->
+        <!-- ===================================================== -->
+
         <main class="max-w-7xl mx-auto w-full p-4 md:p-8 flex-grow">
-            
-            <section id="view-dashboard" class="router-section space-y-6">
+
+            <!-- ================================================= -->
+            <!-- DASHBOARD -->
+            <!-- ================================================= -->
+
+            <section id="view-dashboard"
+                     class="router-section space-y-6">
+
                 <div class="flex justify-between items-center">
+
                     <div>
-                        <h1 class="text-3xl font-bold tracking-tight text-slate-900">Operational Dashboard</h1>
-                        <p class="text-xs text-slate-400 mt-0.5">Real-time enterprise metrics & core inventory state diagnostics.</p>
+
+                        <h1 class="text-3xl font-bold tracking-tight text-slate-900">
+                            Operational Dashboard
+                        </h1>
+
+                        <p class="text-xs text-slate-400 mt-0.5">
+                            Real-time enterprise metrics & core inventory state diagnostics.
+                        </p>
+
                     </div>
-                    <span class="text-xs font-semibold px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200/60 flex items-center gap-1.5" id="liveClock">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> System Secure
+
+                    <span class="text-xs font-semibold px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200/60 flex items-center gap-1.5"
+                          id="liveClock">
+
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+
+                        System Secure
+
                     </span>
+
                 </div>
-                
+
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+
                     <div class="bg-white p-6 border border-slate-200/60 rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] relative overflow-hidden group hover:shadow-md transition-all duration-300">
+
                         <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+
                         <div class="flex items-center justify-between">
+
                             <div>
-                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Aggregated Units</p>
-                                <p id="dash-total" class="text-3xl font-bold text-slate-800 mt-1">0</p>
+
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                                    Total Aggregated Units
+                                </p>
+
+                                <p id="dash-total"
+                                   class="text-3xl font-bold text-slate-800 mt-1">
+                                    0
+                                </p>
+
                             </div>
-                            <div class="p-3 bg-blue-50 text-blue-600 rounded-xl"><span class="material-symbols-outlined text-2xl">widgets</span></div>
+
+                            <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
+
+                                <span class="material-symbols-outlined text-2xl">
+                                    widgets
+                                </span>
+
+                            </div>
+
                         </div>
+
                     </div>
+
                     <div class="bg-white p-6 border border-slate-200/60 rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] relative overflow-hidden group hover:shadow-md transition-all duration-300">
+
                         <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-teal-500"></div>
+
                         <div class="flex items-center justify-between">
+
                             <div>
-                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Functional Status</p>
-                                <p id="dash-working" class="text-3xl font-bold text-slate-800 mt-1">0</p>
+
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                                    Functional Status
+                                </p>
+
+                                <p id="dash-working"
+                                   class="text-3xl font-bold text-slate-800 mt-1">
+                                    0
+                                </p>
+
                             </div>
-                            <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl"><span class="material-symbols-outlined text-2xl">check_circle</span></div>
+
+                            <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
+
+                                <span class="material-symbols-outlined text-2xl">
+                                    check_circle
+                                </span>
+
+                            </div>
+
                         </div>
+
                     </div>
+
                     <div class="bg-white p-6 border border-slate-200/60 rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] relative overflow-hidden group hover:shadow-md transition-all duration-300">
+
                         <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-rose-500 to-orange-500"></div>
+
                         <div class="flex items-center justify-between">
+
                             <div>
-                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Defective Elements</p>
-                                <p id="dash-faulty" class="text-3xl font-bold text-slate-800 mt-1">0</p>
+
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                                    Defective Elements
+                                </p>
+
+                                <p id="dash-faulty"
+                                   class="text-3xl font-bold text-slate-800 mt-1">
+                                    0
+                                </p>
+
                             </div>
-                            <div class="p-3 bg-rose-50 text-rose-600 rounded-xl"><span class="material-symbols-outlined text-2xl">gavel</span></div>
+
+                            <div class="p-3 bg-rose-50 text-rose-600 rounded-xl">
+
+                                <span class="material-symbols-outlined text-2xl">
+                                    gavel
+                                </span>
+
+                            </div>
+
                         </div>
+
                     </div>
+
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
                     <div class="bg-white border border-slate-200/70 rounded-2xl p-5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] h-[340px] flex flex-col justify-between">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Category Density</h3>
-                        <div class="relative w-full h-[260px] flex items-center justify-center"><canvas id="chartCategories"></canvas></div>
+
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wide flex items-center gap-1.5">
+
+                            <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+
+                            Category Density
+
+                        </h3>
+
+                        <div class="relative w-full h-[260px] flex items-center justify-center">
+
+                            <canvas id="chartCategories"></canvas>
+
+                        </div>
+
                     </div>
+
                     <div class="bg-white border border-slate-200/70 rounded-2xl p-5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] h-[340px] flex flex-col justify-between">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Condition Breakdown</h3>
-                        <div class="relative w-full h-[260px] flex items-center justify-center"><canvas id="chartCondition"></canvas></div>
+
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wide flex items-center gap-1.5">
+
+                            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+
+                            Condition Breakdown
+
+                        </h3>
+
+                        <div class="relative w-full h-[260px] flex items-center justify-center">
+
+                            <canvas id="chartCondition"></canvas>
+
+                        </div>
+
                     </div>
+
                     <div class="bg-white border border-slate-200/70 rounded-2xl p-5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] h-[340px] flex flex-col justify-between">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span> Deployment Pipeline</h3>
-                        <div class="relative w-full h-[260px] flex items-center justify-center"><canvas id="chartTimeline"></canvas></div>
+
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wide flex items-center gap-1.5">
+
+                            <span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
+
+                            Deployment Pipeline
+
+                        </h3>
+
+                        <div class="relative w-full h-[260px] flex items-center justify-center">
+
+                            <canvas id="chartTimeline"></canvas>
+
+                        </div>
+
                     </div>
+
                 </div>
+
             </section>
 
-            <section id="view-inventory" class="router-section space-y-6">
+            <!-- ================================================= -->
+            <!-- INVENTORY -->
+            <!-- ================================================= -->
+
+            <section id="view-inventory"
+                     class="router-section space-y-6">
+
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+
                     <div>
-                        <h1 class="text-3xl font-bold tracking-tight text-slate-900">Hardware Repositories</h1>
-                        <p id="inv-count-string" class="text-xs text-slate-400 font-medium mt-0.5">Analyzing cluster node logs...</p>
+
+                        <h1 class="text-3xl font-bold tracking-tight text-slate-900">
+                            Hardware Repositories
+                        </h1>
+
+                        <p id="inv-count-string"
+                           class="text-xs text-slate-400 font-medium mt-0.5">
+                            Analyzing cluster node logs...
+                        </p>
+
                     </div>
+
                     <div class="flex flex-wrap items-center gap-2">
-                        <button onclick="exportToCSV()" class="bg-gradient-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5">
-                            <span class="material-symbols-outlined text-sm">download</span> Export Matrix
+
+                        <button onclick="exportToCSV()"
+                                class="bg-gradient-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5">
+
+                            <span class="material-symbols-outlined text-sm">
+                                download
+                            </span>
+
+                            Export Matrix
+
                         </button>
+
                         <div class="relative">
-                            <input id="invSearch" oninput="triggerSearchQuery(this.value)" placeholder="Search serial, room, brand..." class="border border-slate-200 bg-white/80 pl-9 pr-4 py-2 rounded-xl text-xs w-full sm:w-64 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm">
-                            <span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-base">search</span>
+
+                            <input id="invSearch"
+                                   oninput="triggerSearchQuery(this.value)"
+                                   placeholder="Search serial, room, brand..."
+                                   class="border border-slate-200 bg-white/80 pl-9 pr-4 py-2 rounded-xl text-xs w-full sm:w-64 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm">
+
+                            <span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-base">
+                                search
+                            </span>
+
                         </div>
+
                     </div>
+
                 </div>
 
                 <div class="bg-white/80 backdrop-blur-md border border-slate-200 p-4 rounded-2xl flex flex-wrap gap-4 items-center shadow-sm">
+
                     <div class="flex items-center gap-2">
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Category:</span>
-                        <select id="filterCategory" onchange="applyFilters()" class="text-xs border border-slate-200 bg-white rounded-xl py-1.5 pl-2 pr-8 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"><option value="All">All Categories</option><option>Keyboard</option><option>Mouse</option><option>Monitor</option><option>CPU</option></select>
+
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                            Category:
+                        </span>
+
+                        <select id="filterCategory"
+                                onchange="applyFilters()"
+                                class="text-xs border border-slate-200 bg-white rounded-xl py-1.5 pl-2 pr-8 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
+                            <option value="All">All Categories</option>
+                            <option>Keyboard</option>
+                            <option>Mouse</option>
+                            <option>Monitor</option>
+                            <option>CPU</option>
+
+                        </select>
+
                     </div>
+
                     <div class="flex items-center gap-2">
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Condition:</span>
-                        <select id="filterCondition" onchange="applyFilters()" class="text-xs border border-slate-200 bg-white rounded-xl py-1.5 pl-2 pr-8 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"><option value="All">All Conditions</option><option>Working</option><option>Faulty</option><option>Repair</option></select>
+
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                            Condition:
+                        </span>
+
+                        <select id="filterCondition"
+                                onchange="applyFilters()"
+                                class="text-xs border border-slate-200 bg-white rounded-xl py-1.5 pl-2 pr-8 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
+                            <option value="All">All Conditions</option>
+                            <option>Working</option>
+                            <option>Faulty</option>
+                            <option>Repair</option>
+
+                        </select>
+
                     </div>
+
                 </div>
 
-                <div id="cardsGridContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                <div id="cardsGridContainer"
+                     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+
             </section>
 
-            <section id="view-rooms" class="router-section space-y-6">
+            <!-- ================================================= -->
+            <!-- ROOMS -->
+            <!-- ================================================= -->
+
+            <section id="view-rooms"
+                     class="router-section space-y-6">
+
                 <div>
-                    <h1 class="text-3xl font-bold tracking-tight text-slate-900">Room Allocation Matrix</h1>
-                    <p class="text-xs text-slate-400 mt-0.5">Real-time modular infrastructure deployment maps grouped dynamically by physical facility layout.</p>
+
+                    <h1 class="text-3xl font-bold tracking-tight text-slate-900">
+                        Room Allocation Matrix
+                    </h1>
+
+                    <p class="text-xs text-slate-400 mt-0.5">
+                        Real-time modular infrastructure deployment maps grouped dynamically by physical facility layout.
+                    </p>
+
                 </div>
-                <div id="roomsViewContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+
+                <div id="roomsViewContainer"
+                     class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                </div>
+
             </section>
 
-            <section id="view-add-asset" class="router-section max-w-2xl mx-auto bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.02)] relative overflow-hidden">
+            <!-- ================================================= -->
+            <!-- ADD ASSET -->
+            <!-- ================================================= -->
+
+            <section id="view-add-asset"
+                     class="router-section max-w-2xl mx-auto bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.02)] relative overflow-hidden">
+
                 <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-500"></div>
-                <h2 id="formHeader" class="text-2xl font-bold tracking-tight text-slate-900 mb-1">Add System Hardware</h2>
-                <p class="text-xs text-slate-400 mb-6">Populate structural telemetry metrics to register this physical component to the matrix database logs.</p>
-                
-                <form id="assetWriteForm" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <input type="hidden" id="formAssetId">
+
+                <h2 id="formHeader"
+                    class="text-2xl font-bold tracking-tight text-slate-900 mb-1">
+                    Add System Hardware
+                </h2>
+
+                <p class="text-xs text-slate-400 mb-6">
+                    Populate structural telemetry metrics to register this physical component to the matrix database logs.
+                </p>
+
+                <form id="assetWriteForm"
+                      class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+                    <input type="hidden"
+                           id="formAssetId">
+
                     <div>
-                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Hardware Category *</label>
-                        <select id="assetCategory" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
-                            <option>Keyboard</option><option>Mouse</option><option>Monitor</option><option>CPU</option>
+
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                            Hardware Category *
+                        </label>
+
+                        <select id="assetCategory"
+                                class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
+                            <option>Keyboard</option>
+                            <option>Mouse</option>
+                            <option>Monitor</option>
+                            <option>CPU</option>
+
                         </select>
+
                     </div>
+
                     <div>
-                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Manufacturer Brand *</label>
-                        <input id="assetBrand" type="text" required placeholder="e.g., Logitech" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                            Manufacturer Brand *
+                        </label>
+
+                        <input id="assetBrand"
+                               type="text"
+                               required
+                               placeholder="e.g., Logitech"
+                               class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
                     </div>
+
                     <div>
-                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Model Designation String *</label>
-                        <input id="assetModel" type="text" required placeholder="e.g., G-Pro Wireless" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                            Model Designation String *
+                        </label>
+
+                        <input id="assetModel"
+                               type="text"
+                               required
+                               placeholder="e.g., G-Pro Wireless"
+                               class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
                     </div>
+
                     <div>
-                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Deployment Location (Room / Lab)</label>
-                        <input id="assetRoom" type="text" placeholder="e.g., Server Room 3B" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                            Deployment Location (Room / Lab)
+                        </label>
+
+                        <input id="assetRoom"
+                               type="text"
+                               placeholder="e.g., Server Room 3B"
+                               class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
                     </div>
+
                     <div>
-                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Available Quantity *</label>
-                        <input id="assetQuantity" type="number" min="0" required class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                            Available Quantity *
+                        </label>
+
+                        <input id="assetQuantity"
+                               type="number"
+                               min="0"
+                               required
+                               class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
                     </div>
+
                     <div>
-                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Purchase Date (Optional)</label>
-                        <input id="assetDate" type="date" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                            Purchase Date (Optional)
+                        </label>
+
+                        <input id="assetDate"
+                               type="date"
+                               class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
                     </div>
+
                     <div class="sm:col-span-2">
-                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Functional Condition State</label>
-                        <select id="assetCondition" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
-                            <option>Working</option><option>Faulty</option><option>Repair</option>
+
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                            Functional Condition State
+                        </label>
+
+                        <select id="assetCondition"
+                                class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
+                            <option>Working</option>
+                            <option>Faulty</option>
+                            <option>Repair</option>
+
                         </select>
+
                     </div>
+
                     <div class="sm:col-span-2">
-                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Specifications & Parameters Log</label>
-                        <input id="assetSpecs" type="text" placeholder="e.g., 2.4Ghz wireless dongle" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                            Specifications & Parameters Log
+                        </label>
+
+                        <input id="assetSpecs"
+                               type="text"
+                               placeholder="e.g., 2.4Ghz wireless dongle"
+                               class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
+
                     </div>
+
                     <div class="sm:col-span-2 flex items-center gap-3 pt-3">
-                        <button type="submit" id="formSubmitBtn" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-6 py-2.5 rounded-xl text-xs transition-all shadow-md shadow-blue-200 transform hover:-translate-y-0.5">
+
+                        <button type="submit"
+                                id="formSubmitBtn"
+                                class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-6 py-2.5 rounded-xl text-xs transition-all shadow-md shadow-blue-200 transform hover:-translate-y-0.5">
+
                             Commit Record
+
                         </button>
-                        <button type="button" id="formCancelBtn" onclick="resetFormToDefaults()" class="hidden bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-4 py-2.5 rounded-xl text-xs transition-all">
+
+                        <button type="button"
+                                id="formCancelBtn"
+                                onclick="resetFormToDefaults()"
+                                class="hidden bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-4 py-2.5 rounded-xl text-xs transition-all">
+
                             Abort Modification
+
                         </button>
+
                     </div>
+
                 </form>
+
             </section>
+
         </main>
 
+        <!-- ===================================================== -->
+        <!-- MOBILE NAVIGATION -->
+        <!-- ===================================================== -->
+
         <nav class="md:hidden bg-white/90 backdrop-blur-md border-t border-slate-200 fixed bottom-0 left-0 w-full z-40 flex justify-around items-center py-2.5 shadow-lg">
-            <a href="#/dashboard" class="flex flex-col items-center text-slate-400 text-[10px] font-bold uppercase tracking-wide gap-0.5"><span class="material-symbols-outlined text-lg">dashboard</span>Dash</a>
-            <a href="#/inventory" class="flex flex-col items-center text-slate-400 text-[10px] font-bold uppercase tracking-wide gap-0.5"><span class="material-symbols-outlined text-lg">inventory_2</span>Stock</a>
-            <a href="#/rooms" class="flex flex-col items-center text-slate-400 text-[10px] font-bold uppercase tracking-wide gap-0.5"><span class="material-symbols-outlined text-lg">meeting_room</span>Rooms</a>
-            <a href="#/add-asset" class="flex flex-col items-center text-slate-400 text-[10px] font-bold uppercase tracking-wide gap-0.5"><span class="material-symbols-outlined text-lg">add_box</span>New</a>
+
+            <a href="#/dashboard"
+               class="flex flex-col items-center text-slate-400 text-[10px] font-bold uppercase tracking-wide gap-0.5">
+
+                <span class="material-symbols-outlined text-lg">
+                    dashboard
+                </span>
+
+                Dash
+
+            </a>
+
+            <a href="#/inventory"
+               class="flex flex-col items-center text-slate-400 text-[10px] font-bold uppercase tracking-wide gap-0.5">
+
+                <span class="material-symbols-outlined text-lg">
+                    inventory_2
+                </span>
+
+                Stock
+
+            </a>
+
+            <a href="#/rooms"
+               class="flex flex-col items-center text-slate-400 text-[10px] font-bold uppercase tracking-wide gap-0.5">
+
+                <span class="material-symbols-outlined text-lg">
+                    meeting_room
+                </span>
+
+                Rooms
+
+            </a>
+
+            <a href="#/add-asset"
+               class="flex flex-col items-center text-slate-400 text-[10px] font-bold uppercase tracking-wide gap-0.5">
+
+                <span class="material-symbols-outlined text-lg">
+                    add_box
+                </span>
+
+                New
+
+            </a>
+
         </nav>
+
     </div>
 
+    <!-- ========================================================= -->
+    <!-- PASSWORD UI FUNCTIONS -->
+    <!-- ========================================================= -->
+
+    <script>
+        function togglePasswordVisibility() {
+
+            const passwordInput =
+                document.getElementById("loginPassword");
+
+            const eyeIcon =
+                document.getElementById("passwordEyeIcon");
+
+            const toggleButton =
+                document.getElementById("passwordToggleButton");
+
+            if (!passwordInput || !eyeIcon) {
+                return;
+            }
+
+            if (passwordInput.type === "password") {
+
+                passwordInput.type = "text";
+
+                eyeIcon.textContent = "visibility_off";
+
+                if (toggleButton) {
+                    toggleButton.setAttribute(
+                        "aria-label",
+                        "Hide password"
+                    );
+                }
+
+            } else {
+
+                passwordInput.type = "password";
+
+                eyeIcon.textContent = "visibility";
+
+                if (toggleButton) {
+                    toggleButton.setAttribute(
+                        "aria-label",
+                        "Show password"
+                    );
+                }
+            }
+        }
+
+        function forgotPassword() {
+
+            const usernameInput =
+                document.getElementById("loginUsername");
+
+            if (!usernameInput) {
+                return;
+            }
+
+            const username =
+                usernameInput.value.trim();
+
+            if (!username) {
+
+                alert(
+                    "Please enter your username first.\n\n" +
+                    "If you still cannot access your account, " +
+                    "contact the system administrator."
+                );
+
+                usernameInput.focus();
+
+                return;
+            }
+
+            alert(
+                "Password reset is not configured in the current system.\n\n" +
+                "Please contact the system administrator to reset your password."
+            );
+        }
+    </script>
+
+    <!-- ========================================================= -->
+    <!-- EXISTING LIBRARIES -->
+    <!-- ========================================================= -->
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="script.js"></script>
+
 </body>
 </html>

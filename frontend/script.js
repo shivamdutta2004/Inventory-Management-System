@@ -436,3 +436,26 @@ function showToast(text, designType = 'success') {
         setTimeout(() => { toastNode.remove(); }, 300);
     }, 3500);
 }
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById("loginPassword");
+    const eyeIcon = document.getElementById("passwordEyeIcon");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.textContent = "visibility_off";
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.textContent = "visibility";
+    }
+}
+function forgotPassword() {
+    const username = document.getElementById("loginUsername").value.trim();
+
+    if (!username) {
+        alert("Please enter your username first.");
+        document.getElementById("loginUsername").focus();
+        return;
+    }
+
+    alert("Password reset is not configured yet. Please contact the system administrator.");
+}
